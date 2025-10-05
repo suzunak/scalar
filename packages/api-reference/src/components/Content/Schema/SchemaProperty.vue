@@ -266,6 +266,28 @@ const shouldShowEnumDescriptions = computed(() => {
     typeof enumDescriptions === 'object' && !Array.isArray(enumDescriptions)
   )
 })
+
+/**
+ * Map respective enum values to their display names
+ */
+const getEnumDisplayName = computed(() => (enumValue: string) => {
+  const enumValues = getEnumFromValue(optimizedValue.value)
+  if (!enumValues?.length) return enumValue
+
+  console.log('getEnumDisplayName called with:', enumValue)
+
+  const displayNameMap: Record<string, string> = {
+    terrestrial: 'Terrestrial',
+    gas_giant: 'GasGiant',
+    ice_giant: 'IceGiant',
+    dwarf: 'Dwarf',
+    super_earth: 'SuperEarth',
+  }
+
+  console.log('displayNameMap:', displayNameMap[enumValue])
+
+  return displayNameMap[enumValue] || enumValue
+})
 </script>
 <template>
   <component
@@ -333,7 +355,7 @@ const shouldShowEnumDescriptions = computed(() => {
             class="property">
             <div class="property-heading">
               <div class="property-name">
-                {{ enumValue }}
+                {{ enumValue }}={{ getEnumDisplayName(enumValue) }}
               </div>
             </div>
             <div class="property-description">
