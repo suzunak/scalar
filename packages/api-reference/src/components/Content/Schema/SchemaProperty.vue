@@ -338,7 +338,7 @@ const shouldShowEnumDescriptions = computed(() => {
             </div>
             <div class="property-description">
               <ScalarMarkdown
-                :value="optimizedValue?.['x-enumDescriptions']?.[enumValue]" />
+                :value="optimizedValue?.['x-enum-descriptions']?.[enumValue]" />
             </div>
           </div>
         </div>
