@@ -718,12 +718,6 @@ components:
             - ice_giant
             - dwarf
             - super_earth
-          x-enumDescriptions:
-          terrestrial: 'Rocky planets with solid surfaces, like Earth and Mars'
-          gas_giant: 'Large planets primarily composed of hydrogen and helium, like Jupiter and Saturn'
-          ice_giant: 'Planets with atmospheres rich in ices like water, ammonia, and methane, like Uranus and Neptune'
-          dwarf: 'Small planetary bodies that have not cleared their orbital neighborhood'
-          super_earth: 'Rocky planets that are more massive than Earth but lighter than ice giants'
           examples:
             - terrestrial
         habitabilityIndex:
