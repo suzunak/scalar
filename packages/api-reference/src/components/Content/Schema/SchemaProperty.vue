@@ -350,12 +350,14 @@ const getEnumDisplayName = computed(() => (enumValue: string) => {
       <template v-if="shouldShowEnumDescriptions">
         <div class="property-list">
           <div
-            v-for="enumValue in getEnumFromValue(optimizedValue)"
+            v-for="(enumValue, index) in getEnumFromValue(optimizedValue)"
             :key="enumValue"
             class="property">
             <div class="property-heading">
               <div class="property-name">
-                {{ enumValue }}={{ getEnumDisplayName(enumValue) }}
+                {{ enumValue }}={{
+                  optimizedValue?.['x-enum-varnames']?.[index]
+                }}
               </div>
             </div>
             <div class="property-description">
