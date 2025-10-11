@@ -244,18 +244,6 @@ const shouldRenderObjectProperties = computed(() => {
 })
 
 const shouldShowEnumDescriptions = computed(() => {
-  // Debugging logs
-  console.log('optimizedValue:', optimizedValue.value)
-  console.log(
-    'typeof x-enumDescriptions:',
-    optimizedValue.value?.['x-enumDescriptions'],
-  )
-  console.log(
-    'typeof x-enum-descriptions:',
-    optimizedValue.value?.['x-enum-descriptions'],
-  )
-  console.log('enum length:', getEnumFromValue(optimizedValue.value)?.length)
-
   if (!optimizedValue.value?.['x-enum-descriptions']) {
     return false
   }
