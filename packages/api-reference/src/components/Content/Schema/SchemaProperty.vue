@@ -243,6 +243,9 @@ const shouldRenderObjectProperties = computed(() => {
   return isObjectType && hasPropertiesToRender
 })
 
+/**
+ * Shows enum descriptions if they exist
+ */
 const shouldShowEnumDescriptions = computed(() => {
   if (!optimizedValue.value?.['x-enum-descriptions']) {
     return false
