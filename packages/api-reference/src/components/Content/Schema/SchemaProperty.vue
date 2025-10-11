@@ -243,12 +243,15 @@ const shouldRenderObjectProperties = computed(() => {
   return isObjectType && hasPropertiesToRender
 })
 
+/**
+ * Shows enum descriptions if they exist
+ */
 const shouldShowEnumDescriptions = computed(() => {
-  if (!optimizedValue.value?.['x-enumDescriptions']) {
+  if (!optimizedValue.value?.['x-enum-descriptions']) {
     return false
   }
 
-  const enumDescriptions = optimizedValue.value['x-enumDescriptions']
+  const enumDescriptions = optimizedValue.value['x-enum-descriptions']
 
   return (
     typeof enumDescriptions === 'object' && !Array.isArray(enumDescriptions)
@@ -313,57 +316,101 @@ const shouldShowEnumDescriptions = computed(() => {
     <div
       v-if="getEnumFromValue(optimizedValue)?.length > 0 && !isDiscriminator"
       class="property-enum">
-      <template v-if="shouldShowEnumDescriptions">
+      <template v-if="!hasLongEnumList && shouldShowEnumDescriptions">
         <div class="property-list">
           <div
-            v-for="enumValue in getEnumFromValue(optimizedValue)"
+            v-for="(enumValue, index) in getEnumFromValue(optimizedValue)"
             :key="enumValue"
             class="property">
             <div class="property-heading">
               <div class="property-name">
-                {{ enumValue }}
+                {{ enumValue }}={{
+                  optimizedValue?.['x-enum-varnames']?.[index]
+                }}
               </div>
             </div>
             <div class="property-description">
               <ScalarMarkdown
-                :value="optimizedValue?.['x-enumDescriptions']?.[enumValue]" />
+                :value="optimizedValue?.['x-enum-descriptions']?.[enumValue]" />
             </div>
           </div>
         </div>
       </template>
       <template v-else>
-        <ul class="property-enum-values">
-          <li
-            v-for="enumValue in visibleEnumValues"
-            :key="enumValue"
-            class="property-enum-value">
-            <span class="property-enum-value-label">
-              {{ enumValue }}
-            </span>
-          </li>
-          <Disclosure
-            v-if="hasLongEnumList"
-            v-slot="{ open }">
+        <Disclosure
+          v-if="hasLongEnumList"
+          v-slot="{ open }">
+          <div class="property-list">
+            <div
+              v-for="(enumValue, index) in visibleEnumValues"
+              :key="enumValue"
+              class="property">
+              <div class="property-heading">
+                <div class="property-name">
+                  {{ enumValue }}={{
+                    optimizedValue?.['x-enum-varnames']?.[index]
+                  }}
+                </div>
+                <div class="property-description">
+                  <ScalarMarkdown
+                    :value="
+                      optimizedValue?.['x-enum-descriptions']?.[enumValue]
+                    " />
+                </div>
+              </div>
+            </div>
             <DisclosurePanel>
-              <li
-                v-for="enumValue in remainingEnumValues"
+              <div
+                v-for="(enumValue, index) in remainingEnumValues"
                 :key="enumValue"
-                class="property-enum-value">
-                <span class="property-enum-value-label">
-                  {{ enumValue }}
-                </span>
-              </li>
+                class="property">
+                <div class="property-heading">
+                  <div class="property-name">
+                    {{ enumValue }}={{
+                      optimizedValue?.['x-enum-varnames']?.[index]
+                    }}
+                  </div>
+                  <div class="property-description">
+                    <ScalarMarkdown
+                      :value="
+                        optimizedValue?.['x-enum-descriptions']?.[enumValue]
+                      " />
+                  </div>
+                </div>
+              </div>
             </DisclosurePanel>
-            <DisclosureButton class="enum-toggle-button">
-              <ScalarIcon
-                class="enum-toggle-button-icon"
-                :class="{ 'enum-toggle-button-icon--open': open }"
-                icon="Add"
-                size="sm" />
-              {{ open ? 'Hide values' : 'Show all values' }}
-            </DisclosureButton>
-          </Disclosure>
-        </ul>
+          </div>
+          <DisclosureButton class="enum-toggle-button">
+            <ScalarIcon
+              class="enum-toggle-button-icon"
+              :class="{ 'enum-toggle-button-icon--open': open }"
+              icon="Add"
+              size="sm" />
+            {{ open ? 'Hide values' : 'Show all values' }}
+          </DisclosureButton>
+        </Disclosure>
+        <div
+          v-else
+          class="property-list">
+          <div
+            v-for="(enumValue, index) in visibleEnumValues"
+            :key="enumValue"
+            class="property">
+            <div class="property-heading">
+              <div class="property-name">
+                {{ enumValue }}={{
+                  optimizedValue?.['x-enum-varnames']?.[index]
+                }}
+              </div>
+              <div class="property-description">
+                <ScalarMarkdown
+                  :value="
+                    optimizedValue?.['x-enum-descriptions']?.[enumValue]
+                  " />
+              </div>
+            </div>
+          </div>
+        </div>
       </template>
     </div>
     <!-- Object -->
@@ -575,6 +622,7 @@ const shouldShowEnumDescriptions = computed(() => {
   display: flex;
   padding: 3px 0;
   font-family: var(--scalar-font-code);
+  flex-direction: column;
 }
 .property-enum-value:last-of-type .property-enum-value-label {
   padding-bottom: 0;
