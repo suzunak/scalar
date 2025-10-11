@@ -316,7 +316,7 @@ const shouldShowEnumDescriptions = computed(() => {
     <div
       v-if="getEnumFromValue(optimizedValue)?.length > 0 && !isDiscriminator"
       class="property-enum">
-      <template v-if="shouldShowEnumDescriptions">
+      <template v-if="!hasLongEnumList && shouldShowEnumDescriptions">
         <div class="property-list">
           <div
             v-for="(enumValue, index) in getEnumFromValue(optimizedValue)"
