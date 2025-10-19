@@ -157,7 +157,7 @@ const handleDiscriminatorChange = (type: string) => {
   <Disclosure
     v-if="typeof value === 'object' && Object.keys(value).length"
     v-slot="{ open }"
-    :defaultOpen="noncollapsible">
+    :defaultOpen="noncollapsible && !additionalProperties">
     <div
       class="schema-card"
       :class="[
@@ -180,8 +180,7 @@ const handleDiscriminatorChange = (type: string) => {
         }">
         <!-- Special toggle to show additional properties -->
         <div
-          v-if="additionalProperties"
-          v-show="!open"
+          v-if="additionalProperties && !open"
           class="schema-properties">
           <DisclosureButton
             as="button"
@@ -233,7 +232,7 @@ const handleDiscriminatorChange = (type: string) => {
         </DisclosureButton>
         <DisclosurePanel
           as="ul"
-          :static="!shouldShowToggle">
+          :static="!shouldShowToggle && !additionalProperties">
           <!-- Schema properties -->
           <template
             v-if="
@@ -371,6 +370,23 @@ const handleDiscriminatorChange = (type: string) => {
               @update:modelValue="handleDiscriminatorChange" />
           </template>
         </DisclosurePanel>
+
+        <!-- Special toggle to hide additional properties - AFTER properties (when open) -->
+        <div
+          v-if="additionalProperties && open"
+          class="schema-properties">
+          <DisclosureButton
+            as="button"
+            class="schema-card-title schema-card-title--compact"
+            @click.capture="handleClick">
+            <ScalarIcon
+              class="schema-card-title-icon schema-card-title-icon--open"
+              icon="Add"
+              size="sm" />
+            Hide additional properties
+            <ScreenReader v-if="name">for {{ name }}</ScreenReader>
+          </DisclosureButton>
+        </div>
       </div>
     </div>
   </Disclosure>
