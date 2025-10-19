@@ -1,0 +1,140 @@
+{
+  "openapi": "3.0.1",
+  "paths": {
+    "/Test": {
+      "post": {
+        "summary": "Test",
+        "operationId": "Test",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TestRequest": {
+        "required": ["A", "B", "C"],
+        "type": "object",
+        "properties": {
+          "A": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "B": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "C": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "D": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "E": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "F": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "G": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "H": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "I": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "J": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "K": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "L": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "M": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "N": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "O": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "P": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "Q": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "R": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "S": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "T": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "U": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "V": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "W": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "X": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "Y": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "Z": {
+            "maxLength": 50,
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
