@@ -224,6 +224,7 @@
     "@vueuse/integrations": "catalog:*",
     "focus-trap": "^7",
     "fuse.js": "^7.0.0",
+    "js-base64": "^3.7.8",
     "microdiff": "^1.4.0",
     "nanoid": "catalog:*",
     "pretty-bytes": "^6.1.1",
