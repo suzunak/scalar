@@ -1,6 +1,6 @@
 # Plan Milestones
 
-Reference the relevant design document, and create or update a doc in the `memory/milestones` directory, following the naming convention: `001_xxx_milestones.md`.
+Reference the relevant design document, and create or update a doc in the `memory/milestones/${issueNum}` directory, following the naming convention: `001_xxx_milestones.md`.
 
 Create a series of milestones to implement the design. The milestones should implement the design in an iterative, progressive way, so that we can verify and test along the way.
 
