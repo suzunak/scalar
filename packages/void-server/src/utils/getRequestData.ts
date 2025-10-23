@@ -1,5 +1,6 @@
 import type { Context } from 'hono'
 import { getCookie } from 'hono/cookie'
+import { Base64 } from 'js-base64'
 
 import { getBody } from './getBody'
 
@@ -21,7 +22,7 @@ export async function getRequestData(c: Context) {
           authentication: {
             type: 'http.basic',
             token,
-            value: atob(token),
+            value: Base64.decode(token),
           },
         }
       }

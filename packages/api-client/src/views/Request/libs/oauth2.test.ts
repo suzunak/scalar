@@ -1,5 +1,6 @@
 import { securityOauthSchema, serverSchema } from '@scalar/oas-utils/entities/spec'
 import { flushPromises } from '@vue/test-utils'
+import { Base64 } from 'js-base64'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { authorizeOauth2 } from './oauth2'
@@ -25,7 +26,7 @@ const authorizationUrl = 'https://auth.example.com/authorize'
 const tokenUrl = 'https://auth.example.com/token'
 const redirectUri = 'https://callback.example.com'
 const clientSecret = 'yyyyy'
-const secretAuth = btoa(`${baseFlow['x-scalar-client-id']}:${clientSecret}`)
+const secretAuth = Base64.encode(`${baseFlow['x-scalar-client-id']}:${clientSecret}`)
 
 const windowTarget = 'openAuth2Window'
 const windowFeatures = 'left=100,top=100,width=800,height=600'

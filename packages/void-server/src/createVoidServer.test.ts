@@ -322,6 +322,26 @@ describe('createVoidServer', () => {
     })
   })
 
+  /* This is a test for the Basic authentication with Unicode characters */
+  it('decodes Basic auth with Unicode characters correctly', async () => {
+    const server = await createVoidServer()
+
+    // Base64 encoded 'żółć:тест'
+    const response = await server.request('/', {
+      headers: {
+        Authorization: 'Basic xbzDs8WCxIc60YLQtdGB0YI=',
+      },
+    })
+
+    expect(await response.json()).toMatchObject({
+      authentication: {
+        type: 'http.basic',
+        token: 'xbzDs8WCxIc60YLQtdGB0YI=',
+        value: 'żółć:тест',
+      },
+    })
+  })
+
   it('returns JSON for a path ending with .json', async () => {
     const server = await createVoidServer()
 
