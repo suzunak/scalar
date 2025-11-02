@@ -454,6 +454,18 @@ const _apiReferenceConfigurationSchema = apiClientConfigurationSchema.merge(
     operationsSorter: z
       .union([z.literal('alpha'), z.literal('method'), z.function().args(z.any(), z.any()).returns(z.number())])
       .optional(),
+    /**
+     * Controls how schema properties are sorted in the documentation
+     * @default 'alpha' for alphabetical sorting
+     */
+    orderSchemaPropertiesBy: z.enum(['alpha', 'preserve']).optional().default('alpha').catch('alpha'),
+    /**
+     * When true, required properties are displayed first (in their sorted order),
+     * followed by optional properties (in their sorted order).
+     * When false, all properties are sorted together regardless of required status.
+     * @default true
+     */
+    orderRequiredPropertiesFirst: z.boolean().optional().default(true).catch(true),
   }),
 )
 

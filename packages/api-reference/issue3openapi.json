@@ -1,0 +1,164 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Schema Property Sorting Test API",
+    "version": "1.0.0",
+    "description": "Test API for verifying schema property sorting functionality with different configurations"
+  },
+  "paths": {
+    "/test": {
+      "post": {
+        "summary": "Test endpoint with sorted schema",
+        "description": "This endpoint demonstrates how schema properties are sorted based on configuration",
+        "operationId": "testSorting",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["gamma", "zebra"],
+                "properties": {
+                  "zebra": {
+                    "type": "string",
+                    "description": "Required property (1st in original order)"
+                  },
+                  "beta": {
+                    "type": "string",
+                    "description": "Optional property (2nd in original order)"
+                  },
+                  "alpha": {
+                    "type": "string",
+                    "description": "Optional property (3rd in original order)"
+                  },
+                  "gamma": {
+                    "type": "string",
+                    "description": "Required property (4th in original order)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["gamma", "zebra"],
+                  "properties": {
+                    "zebra": {
+                      "type": "string",
+                      "description": "Required property (1st in original order)"
+                    },
+                    "beta": {
+                      "type": "string",
+                      "description": "Optional property (2nd in original order)"
+                    },
+                    "alpha": {
+                      "type": "string",
+                      "description": "Optional property (3rd in original order)"
+                    },
+                    "gamma": {
+                      "type": "string",
+                      "description": "Required property (4th in original order)"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/complex-test": {
+      "post": {
+        "summary": "Complex schema with nested objects",
+        "description": "Tests sorting with nested schemas",
+        "operationId": "complexSorting",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["user", "timestamp"],
+                "properties": {
+                  "user": {
+                    "type": "object",
+                    "required": ["email"],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "User's full name (optional)"
+                      },
+                      "email": {
+                        "type": "string",
+                        "format": "email",
+                        "description": "User's email address (required)"
+                      },
+                      "age": {
+                        "type": "integer",
+                        "description": "User's age (optional)"
+                      }
+                    }
+                  },
+                  "metadata": {
+                    "type": "object",
+                    "description": "Optional metadata",
+                    "properties": {
+                      "source": {
+                        "type": "string"
+                      },
+                      "version": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "When the request was created (required)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TestModel": {
+        "type": "object",
+        "required": ["gamma", "zebra"],
+        "properties": {
+          "zebra": {
+            "type": "string",
+            "description": "Required property (1st in original order)"
+          },
+          "beta": {
+            "type": "string",
+            "description": "Optional property (2nd in original order)"
+          },
+          "alpha": {
+            "type": "string",
+            "description": "Optional property (3rd in original order)"
+          },
+          "gamma": {
+            "type": "string",
+            "description": "Required property (4th in original order)"
+          }
+        }
+      }
+    }
+  }
+}

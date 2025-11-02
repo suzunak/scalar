@@ -942,6 +942,57 @@ Or specify a custom function to sort the operations.
 
 > Note: `method` is the HTTP method of the operation, represented as a lowercase string.
 
+### orderSchemaPropertiesBy?: 'alpha' | 'preserve'
+
+Controls how schema properties are sorted in the documentation. This works in combination with `orderRequiredPropertiesFirst` to determine the final display order.
+
+`@default 'alpha'`
+
+```js
+{
+  orderSchemaPropertiesBy: 'alpha' // Sort properties alphabetically
+}
+```
+
+```js
+{
+  orderSchemaPropertiesBy: 'preserve' // Preserve original order from OpenAPI spec
+}
+```
+
+**Values:**
+- `'alpha'`: Properties are sorted alphabetically
+- `'preserve'`: Properties appear in the same order as defined in the OpenAPI specification
+
+See [Schema Property Sorting Guide](./guides/schema-property-sorting.md) for detailed examples and use cases.
+
+### orderRequiredPropertiesFirst?: boolean
+
+When `true`, required properties are displayed first (in their sorted order), followed by optional properties (in their sorted order). When `false`, all properties are sorted together regardless of required status.
+
+`@default true`
+
+```js
+{
+  orderRequiredPropertiesFirst: true // Group required properties first
+}
+```
+
+```js
+{
+  orderRequiredPropertiesFirst: false // Mix required and optional properties
+}
+```
+
+This option works together with `orderSchemaPropertiesBy` to provide four different sorting combinations:
+
+1. **`alpha` + `true` (default)**: Required properties alphabetically, then optional properties alphabetically
+2. **`alpha` + `false`**: All properties alphabetically together
+3. **`preserve` + `true`**: Required properties in original order, then optional properties in original order
+4. **`preserve` + `false`**: All properties in original specification order
+
+See [Schema Property Sorting Guide](./guides/schema-property-sorting.md) for detailed examples and use cases.
+
 ### theme?: string
 
 You don't like the color scheme? We've prepared some themes for you:

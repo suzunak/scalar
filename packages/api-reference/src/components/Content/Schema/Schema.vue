@@ -6,8 +6,10 @@ import { computed, inject } from 'vue'
 
 import ScreenReader from '@/components/ScreenReader.vue'
 import type { Schemas } from '@/features/Operation/types/schemas'
+import { useConfig } from '@/hooks/useConfig'
 import { DISCRIMINATOR_CONTEXT } from '@/hooks/useDiscriminator'
 
+import { sortSchemaProperties } from './helpers/sort-schema-properties'
 import SchemaHeading from './SchemaHeading.vue'
 import SchemaProperty from './SchemaProperty.vue'
 
@@ -51,6 +53,9 @@ const props = withDefaults(
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void
 }>()
+
+// Get configuration for property sorting
+const config = useConfig()
 
 // Inject the discriminator context
 const discriminatorContext = inject(DISCRIMINATOR_CONTEXT, null)
@@ -143,6 +148,33 @@ const shouldShowDescription = computed(() => {
   }
 
   return true
+})
+
+/**
+ * Sorts schema property keys based on configuration settings.
+ * Applies alphabetical or preserved ordering, with optional required-first grouping.
+ */
+const sortedPropertyKeys = computed(() => {
+  if (
+    !schema.value ||
+    typeof schema.value !== 'object' ||
+    !('properties' in schema.value)
+  ) {
+    return []
+  }
+
+  const properties = schema.value.properties
+  if (!properties) {
+    return []
+  }
+
+  const propertyKeys = Object.keys(properties)
+  const requiredProperties = schema.value.required || []
+
+  return sortSchemaProperties(propertyKeys, requiredProperties, {
+    orderSchemaPropertiesBy: config.value.orderSchemaPropertiesBy,
+    orderRequiredPropertiesFirst: config.value.orderRequiredPropertiesFirst,
+  })
 })
 
 // Prevent click action if noncollapsible
@@ -246,7 +278,7 @@ const handleDiscriminatorChange = (type: string) => {
             <!-- Regular properties -->
             <template v-if="schema.properties">
               <SchemaProperty
-                v-for="property in Object.keys(schema.properties)"
+                v-for="property in sortedPropertyKeys"
                 :key="property"
                 :compact="compact"
                 :hideHeading="hideHeading"

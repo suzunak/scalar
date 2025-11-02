@@ -95,9 +95,44 @@
             title: 'OpenStatus',
             url: 'https://api.openstatus.dev/v1/openapi',
           },
+          {
+            title: 'Reproducing Issue',
+            url: 'openapi.json',
+          },
+          // Test 1: Alpha + Required First (Default)
+          {
+            title: 'Test 1: Alpha + Required First (Default)',
+            slug: 'test-alpha-required-first',
+            url: 'issue3openapi.json',
+            orderSchemaPropertiesBy: 'alpha',
+            orderRequiredPropertiesFirst: true,
+          },
+          // Test 2: Alpha + Mixed
+          {
+            title: 'Test 2: Alpha + Mixed',
+            slug: 'test-alpha-mixed',
+            url: 'issue3openapi.json',
+            orderSchemaPropertiesBy: 'alpha',
+            orderRequiredPropertiesFirst: false,
+          },
+          // Test 3: Preserve + Required First
+          {
+            title: 'Test 3: Preserve + Required First',
+            slug: 'test-preserve-required-first',
+            url: 'issue3openapi.json',
+            orderSchemaPropertiesBy: 'preserve',
+            orderRequiredPropertiesFirst: true,
+          },
+          // Test 4: Preserve + Mixed
+          {
+            title: 'Test 4: Preserve + Mixed',
+            slug: 'test-preserve-mixed',
+            url: 'issue3openapi.json',
+            orderSchemaPropertiesBy: 'preserve',
+            orderRequiredPropertiesFirst: false,
+          },
         ],
         persistAuth: true,
-        // Avoid CORS issues
         proxyUrl: 'https://proxy.scalar.com',
       })
     </script>

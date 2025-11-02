@@ -1,0 +1,57 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Test API",
+    "version": "1.0.0",
+    "description": "API with test endpoint"
+  },
+  "paths": {
+    "/Test": {
+      "post": {
+        "summary": "Test",
+        "operationId": "Test",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TestRequest": {
+        "required": ["zebra", "gamma"],
+        "type": "object",
+        "properties": {
+          "zebra": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "beta": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "alpha": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "gamma": {
+            "maxLength": 50,
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
