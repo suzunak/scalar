@@ -305,37 +305,3 @@ If you want to maintain the exact order from your OpenAPI specification (matchin
   orderRequiredPropertiesFirst: false
 }
 ```
-
-## FAQ
-
-**Q: Does this affect all schema displays?**  
-A: Yes, this configuration applies to request bodies, response schemas, and model definitions throughout the documentation.
-
-**Q: Can I use custom sorting functions?**  
-A: Currently, only `'alpha'` and `'preserve'` are supported. Custom sorting functions are not available.
-
-**Q: Does alphabetical sorting consider case sensitivity?**  
-A: The alphabetical sorting uses `localeCompare()`, which provides case-insensitive sorting by default.
-
-**Q: What happens to properties with special characters?**  
-A: Special characters are sorted according to JavaScript's `localeCompare()` rules. For example: `$special`, `_private`, `normal`, `public`.
-
-**Q: Does this work with discriminator schemas?**  
-A: Yes, the sorting applies to all schema properties, including those in discriminator schemas.
-
-**Q: Can I sort differently in different parts of the documentation?**  
-A: No, the configuration is global and applies to all schema displays in the reference.
-
-## Related Documentation
-
-- [Configuration](../configuration.md) - Full configuration reference
-- [OpenAPI](../openapi.md) - OpenAPI specification support
-- [Themes](../themes.md) - Customizing the appearance
-
-## Support
-
-If you encounter any issues with schema property sorting, please:
-1. Check that you're using the latest version of `@scalar/api-reference`
-2. Verify your configuration syntax matches the examples above
-3. Report issues on [GitHub](https://github.com/scalar/scalar/issues)
-
