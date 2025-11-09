@@ -50,6 +50,10 @@ function selectAllScopes() {
     Object.keys(flow?.scopes ?? {}),
   )
 }
+
+function deselectAllScopes() {
+  updateScheme(`flows.${flow.type}.selectedScopes`, [])
+}
 </script>
 
 <template>
@@ -82,6 +86,16 @@ function selectAllScopes() {
               size="sm"
               @click.stop="selectAllScopes">
               Select All
+            </ScalarButton>
+            <ScalarButton
+              v-if="
+                flow?.selectedScopes?.length ===
+                  Object.keys(flow?.scopes ?? {}).length && open
+              "
+              class="text-c-3 hover:bg-b-2 hover:text-c-1 rounded px-1.5"
+              size="sm"
+              @click.stop="deselectAllScopes">
+              Deselect All
             </ScalarButton>
             <ScalarIcon
               class="text-c-3 group-hover/scopes-accordion:text-c-2"
