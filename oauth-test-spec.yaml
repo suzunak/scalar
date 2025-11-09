@@ -1,0 +1,129 @@
+openapi: 3.1.0
+info:
+  title: OAuth Test API
+  version: 1.0.0
+  description: Test API with OAuth2 authentication and multiple scopes
+servers:
+  - url: https://api.example.com
+paths:
+  /users:
+    get:
+      summary: Get users
+      description: Returns a list of users
+      security:
+        - oauth2: [read:users, read:profile]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /admin:
+    get:
+      summary: Admin endpoint
+      description: Admin-only endpoint
+      security:
+        - oauth2: [read:admin, write:admin, delete:admin]
+      responses:
+        '200':
+          description: Successful response
+  /profile:
+    get:
+      summary: Get profile
+      security:
+        - oauth2: [read:profile, read:email, read:phone]
+      responses:
+        '200':
+          description: Profile data
+    put:
+      summary: Update profile
+      security:
+        - oauth2: [write:profile, read:profile]
+      responses:
+        '200':
+          description: Updated
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication with multiple scopes
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.example.com/oauth/authorize
+          tokenUrl: https://auth.example.com/oauth/token
+          scopes:
+            read:users: Read access to user data
+            write:users: Write access to user data
+            delete:users: Delete user data
+            read:profile: Read user profile information
+            write:profile: Write user profile information
+            read:email: Read email addresses
+            write:email: Write email addresses
+            read:phone: Read phone numbers
+            write:phone: Write phone numbers
+            read:admin: Read admin data
+            write:admin: Write admin data
+            delete:admin: Delete admin data
+            read:reports: Read reports
+            write:reports: Write reports
+            read:analytics: Read analytics
+            read:settings: Read user settings
+            write:settings: Write user settings
+            read:notifications: Read notifications
+        clientCredentials:
+          tokenUrl: https://auth.example.com/oauth/token
+          scopes:
+            read:users: Read access to user data
+            write:users: Write access to user data
+            delete:users: Delete user data
+            read:profile: Read user profile information
+            write:profile: Write user profile information
+            read:email: Read email addresses
+            write:email: Write email addresses
+            read:phone: Read phone numbers
+            write:phone: Read phone numbers
+            read:admin: Read admin data
+            write:admin: Write admin data
+            delete:admin: Delete admin data
+            read:settings: Read user settings
+            write:settings: Write user settings
+            read:notifications: Read notifications
+        implicit:
+          authorizationUrl: https://auth.example.com/oauth/authorize
+          scopes:
+            read:users: Read access to user data
+            write:users: Write access to user data
+            read:profile: Read user profile information
+            write:profile: Write user profile information
+            read:email: Read email addresses
+            read:phone: Read phone numbers
+            read:admin: Read admin data
+            read:reports: Read reports
+            read:analytics: Read analytics
+            read:settings: Read user settings
+            write:settings: Write user settings
+            read:notifications: Read notifications
+        password:
+          tokenUrl: https://auth.example.com/oauth/token
+          scopes:
+            read:users: Read access to user data
+            write:users: Write access to user data
+            delete:users: Delete user data
+            read:profile: Read user profile information
+            write:profile: Write user profile information
+            read:email: Read email addresses
+            write:email: Write email addresses
+            read:phone: Read phone numbers
+            write:phone: Write phone numbers
+            read:admin: Read admin data
+            write:admin: Write admin data
+            delete:admin: Delete admin data
+            read:reports: Read reports
+            write:reports: Write reports
+            read:analytics: Read analytics
+            read:settings: Read user settings
+            write:settings: Write user settings
+            read:notifications: Read notifications
